@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Login')}"></head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+<main class="container my-5" style="max-width:460px">
+    <div class="filter-box p-4">
+        <h4 class="mb-1"><i class="bi bi-shield-lock"></i> Admin Login</h4>
+        <p class="text-muted small">Customers can shop without an account - your cart is saved for your browser session. Only the store admin needs to sign in.</p>
+        <div class="alert alert-warning py-2" th:if="${param.required}">Please sign in to open the admin dashboard.</div>
+        <div class="alert alert-danger py-2" th:if="${param.error}">Incorrect password. Please try again.</div>
+        <form th:action="@{/login}" method="post">
+            <label class="form-label">Admin password</label>
+            <input type="password" name="password" class="form-control mb-3" required autofocus>
+            <button class="btn btn-primary w-100" type="submit">Sign in</button>
+        </form>
+    </div>
+</main>
+<div th:replace="~{fragments :: footer}"></div>
+<div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>

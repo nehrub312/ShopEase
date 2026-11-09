@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Online Shopping')}"></head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container mt-3">
+    <!-- Promotional banners -->
+    <div id="promo" class="carousel slide rounded-4 overflow-hidden shadow-sm" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#promo" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#promo" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#promo" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active"><div class="banner b1">
+                <div><span class="tag">MEGA MOBILE FEST</span><h2>Up to 30% off on Smartphones</h2><p>5G phones starting at just ₹8,999</p>
+                    <a th:href="@{/products(category='Mobiles')}" class="btn btn-warning btn-lg">Shop Mobiles</a></div>
+                <i class="bi bi-phone banner-icon"></i></div></div>
+            <div class="carousel-item"><div class="banner b2">
+                <div><span class="tag">WORK &amp; PLAY</span><h2>Laptops for every need</h2><p>Study, work or game - find your perfect laptop</p>
+                    <a th:href="@{/products(category='Laptops')}" class="btn btn-warning btn-lg">Explore Laptops</a></div>
+                <i class="bi bi-laptop banner-icon"></i></div></div>
+            <div class="carousel-item"><div class="banner b3">
+                <div><span class="tag">STYLE STORE</span><h2>New season fashion &amp; shoes</h2><p>Fresh looks from ₹799</p>
+                    <a th:href="@{/products(category='Fashion')}" class="btn btn-warning btn-lg">Shop Fashion</a></div>
+                <i class="bi bi-bag-heart banner-icon"></i></div></div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#promo" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+        <button class="carousel-control-next" type="button" data-bs-target="#promo" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+    </div>
+
+    <div class="row g-3 mt-2 perks text-center">
+        <div class="col-6 col-md-3"><i class="bi bi-truck"></i> Free delivery over ₹999</div>
+        <div class="col-6 col-md-3"><i class="bi bi-shield-check"></i> Secure shopping</div>
+        <div class="col-6 col-md-3"><i class="bi bi-arrow-repeat"></i> Easy returns</div>
+        <div class="col-6 col-md-3"><i class="bi bi-headset"></i> 24x7 support</div>
+    </div>
+
+    <section class="mt-4"><h4 class="section-title"><i class="bi bi-stars"></i> Featured Products</h4>
+        <div class="row g-3"><th:block th:each="p : ${featured}"><div th:replace="~{fragments :: productCard(${p})}"></div></th:block></div></section>
+
+    <section class="mt-4"><h4 class="section-title"><i class="bi bi-graph-up-arrow"></i> Trending Now</h4>
+        <div class="row g-3"><th:block th:each="p : ${trending}"><div th:replace="~{fragments :: productCard(${p})}"></div></th:block></div></section>
+
+    <section class="mt-4"><h4 class="section-title"><i class="bi bi-trophy"></i> Best Sellers</h4>
+        <div class="row g-3"><th:block th:each="p : ${bestSelling}"><div th:replace="~{fragments :: productCard(${p})}"></div></th:block></div></section>
+
+    <section class="mt-4"><h4 class="section-title"><i class="bi bi-hand-thumbs-up"></i> Recommended for You</h4>
+        <div class="row g-3"><th:block th:each="p : ${recommended}"><div th:replace="~{fragments :: productCard(${p})}"></div></th:block></div></section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+<div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>

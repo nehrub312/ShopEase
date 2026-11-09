@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Oops')}"></head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+<main class="container my-5">
+    <div class="empty-state">
+        <i class="bi bi-emoji-frown"></i>
+        <h3 th:text="${status == 404} ? 'Page not found' : 'Something went wrong'">Something went wrong</h3>
+        <p th:text="${status == 404} ? 'The page or product you are looking for does not exist.' : 'We hit a problem while loading this page. Please try again in a moment.'">Message</p>
+        <a class="btn btn-primary" th:href="@{/}">Back to Home</a>
+    </div>
+</main>
+<div th:replace="~{fragments :: footer}"></div>
+<div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>

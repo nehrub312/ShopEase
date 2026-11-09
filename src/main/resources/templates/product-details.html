@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head(${product.name})}"></head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container mt-3">
+    <nav aria-label="breadcrumb"><ol class="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+        <li class="breadcrumb-item"><a th:href="@{/products(category=${product.category})}" th:text="${product.category}">Category</a></li>
+        <li class="breadcrumb-item active" th:text="${product.name}">Product</li>
+    </ol></nav>
+
+    <div class="row g-4 detail-box">
+        <div class="col-md-5">
+            <div class="detail-img"><img th:src="${product.imageUrl}" th:alt="${product.name}" onerror="imgFallback(this)"></div>
+        </div>
+        <div class="col-md-7">
+            <span class="badge cat-badge mb-2" th:text="${product.category}">Category</span>
+            <h2 th:text="${product.name}">Product</h2>
+            <div class="price big my-3" th:text="${@fmt.inr(product.price)}">₹0.00</div>
+            <p class="text-muted" th:text="${product.description}">Description</p>
+            <p class="fw-semibold" th:classappend="${product.stock > 0} ? 'text-success' : 'text-danger'"
+               th:text="${product.stock > 0} ? 'In stock - ' + ${product.stock} + ' available' : 'Out of stock'">In stock</p>
+
+            <div class="d-flex align-items-end gap-3 flex-wrap" th:if="${product.stock > 0}">
+                <div>
+                    <label for="qtyInput" class="form-label small mb-1">Quantity (max 5)</label>
+                    <div class="input-group qty-group">
+                        <button class="btn btn-outline-secondary" type="button" onclick="stepQty(-1)">-</button>
+                        <input id="qtyInput" type="number" class="form-control text-center" value="1" min="1" max="5">
+                        <button class="btn btn-outline-secondary" type="button" onclick="stepQty(1)">+</button>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg px-4" type="button" th:attr="data-add-detail=${product.id}">
+                    <i class="bi bi-cart-plus"></i> Add to Cart</button>
+                <a class="btn btn-outline-primary btn-lg" th:href="@{/cart}">Go to Cart</a>
+            </div>
+            <div id="qtyMsg" class="text-danger small mt-2"></div>
+            <ul class="small text-muted mt-3 mb-0">
+                <li>Maximum quantity allowed is 5 per product.</li>
+                <li>Free delivery on orders above ₹999.</li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="mt-5" th:if="${!related.isEmpty()}">
+        <h4 class="section-title">Related Products</h4>
+        <div class="row g-3"><th:block th:each="p : ${related}"><div th:replace="~{fragments :: productCard(${p})}"></div></th:block></div>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+<div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>

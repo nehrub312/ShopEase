@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' | ShopEase'">ShopEase</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}" type="image/svg+xml">
+</head>
+<body>
+
+<header th:fragment="header" class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark topbar">
+        <div class="container">
+            <a class="navbar-brand brand" th:href="@{/}">
+                <img th:src="@{/images/logo.svg}" alt="" width="38" height="38">
+                <span>Shop<b>Ease</b></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav" aria-label="Menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="topNav">
+                <form class="search-form flex-grow-1 my-2 my-lg-0 mx-lg-4" th:action="@{/products}" method="get">
+                    <div class="input-group">
+                        <input type="search" name="name" class="form-control form-control-lg" placeholder="Search for mobiles, laptops, shoes and more..."
+                               th:value="${param.name != null ? param.name[0] : ''}" aria-label="Search products">
+                        <button class="btn btn-warning px-4" type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/login}"><i class="bi bi-person-circle"></i> Login / Register</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-link" th:href="@{/cart}">
+                            <i class="bi bi-cart3 fs-5"></i> Cart
+                            <span id="cartBadge" class="badge rounded-pill bg-warning text-dark cart-badge">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="category-bar">
+        <div class="container">
+            <a th:each="c : ${categories}" th:href="@{/products(category=${c})}" th:text="${c}" class="cat-link">Category</a>
+            <a th:href="@{/products}" class="cat-link all">All Products</a>
+        </div>
+    </div>
+</header>
+
+<footer th:fragment="footer" class="site-footer mt-5">
+    <div class="container py-4">
+        <div class="row g-4">
+            <div class="col-md-5">
+                <div class="brand text-white mb-2"><img th:src="@{/images/logo.svg}" alt="" width="32" height="32"> <span>Shop<b>Ease</b></span></div>
+                <p class="small mb-0">Your one-stop online shop for mobiles, laptops, fashion and more. Online Shopping Cart System - academic project.</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h6>Shop</h6>
+                <a th:each="c : ${categories}" th:href="@{/products(category=${c})}" th:text="${c}" class="d-block small">Category</a>
+            </div>
+            <div class="col-6 col-md-4">
+                <h6>Help</h6>
+                <a th:href="@{/cart}" class="d-block small">My Cart</a>
+                <a th:href="@{/login}" class="d-block small">Admin Login</a>
+                <span class="d-block small mt-2">Max 5 units per product per order.</span>
+            </div>
+        </div>
+        <hr class="border-secondary">
+        <div class="small text-center">&copy; 2026 ShopEase. All rights reserved.</div>
+    </div>
+</footer>
+
+<div th:fragment="scripts">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/app.js}"></script>
+</div>
+
+<!-- Reusable product card -->
+<div th:fragment="productCard(p)" class="col-6 col-md-4 col-lg-3">
+    <div class="card product-card h-100">
+        <a th:href="@{/products/{id}(id=${p.id})}" class="img-wrap">
+            <img th:src="${p.imageUrl}" th:alt="${p.name}" loading="lazy" onerror="imgFallback(this)">
+        </a>
+        <div class="card-body d-flex flex-column">
+            <span class="badge cat-badge align-self-start mb-2" th:text="${p.category}">Category</span>
+            <h6 class="product-name" th:text="${p.name}">Product name</h6>
+            <div class="price mb-1" th:text="${@fmt.inr(p.price)}">₹0.00</div>
+            <div class="small mb-3" th:classappend="${p.stock > 0} ? 'text-success' : 'text-danger'"
+                 th:text="${p.stock > 0} ? 'In stock: ' + ${p.stock} + ' available' : 'Out of stock'">In stock</div>
+            <div class="mt-auto d-grid gap-2">
+                <button type="button" class="btn btn-primary btn-sm" th:disabled="${p.stock <= 0}"
+                        th:attr="data-add-to-cart=${p.id}"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                <a th:href="@{/products/{id}(id=${p.id})}" class="btn btn-outline-primary btn-sm">View Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

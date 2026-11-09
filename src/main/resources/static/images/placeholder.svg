@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <rect width="400" height="400" fill="#e3f2fd"/>
+  <g fill="none" stroke="#90caf9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="110" y="120" width="180" height="140" rx="14"/><circle cx="165" cy="170" r="16"/><path d="M120 250l55-50 45 40 30-28 40 38"/>
+  </g>
+  <text x="200" y="320" font-family="Arial, sans-serif" font-size="22" fill="#5c8bc0" text-anchor="middle">ShopEase</text>
+  <text x="200" y="348" font-family="Arial, sans-serif" font-size="16" fill="#7ea6d3" text-anchor="middle">Image not available</text>
+</svg>

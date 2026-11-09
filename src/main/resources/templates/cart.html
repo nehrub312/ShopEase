@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('My Cart')}"></head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container mt-3">
+    <h3 class="mb-3"><i class="bi bi-cart3"></i> Shopping Cart</h3>
+    <div id="cartRoot">
+        <div class="text-center py-5"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">Loading your cart...</p></div>
+    </div>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+<div th:replace="~{fragments :: scripts}"></div>
+<script th:src="@{/js/cart.js}"></script>
+</body>
+</html>
